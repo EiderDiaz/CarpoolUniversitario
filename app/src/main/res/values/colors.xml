@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+        <color name="colorPrimary">#9C27B0</color>
+        <color name="colorPrimaryDark">#7B1FA2</color>
+        <color name="primary_light">#E1BEE7</color>
+        <color name="colorAccent">#7C4DFF</color>
+        <color name="primary_text">#212121</color>
+        <color name="secondary_text">#757575</color>
+        <color name="icons">#FFFFFF</color>
+        <color name="divider">#BDBDBD</color>
+
+
+
+
+
+
+
+
+
+
+    <color name="Blue">#03A9F4</color>
+    <color name="Alizarin">#e74c3c </color>
+    <color name="Pomergranate">#c0392b </color>
+
+
+
+
+    <color name="Turquoise">#1abc9c</color>
+    <color name="GreenSea">#16a085</color>
+    <color name="Sunflower">#f1c40f</color>
+    <color name="Orange">#f39c12</color>
+    <color name="Emerald">#2ecc71 </color>
+    <color name="Opacity">#e634495e </color>
+    <color name="Nephritis">#27ae60 </color>
+    <color name="Carrot">#e67e22 </color>
+    <color name="Pumpkin">#d35400 </color>
+
+
+    <color name="Amethyst">#9b59b6 </color>
+    <color name="Wisteria">#8e44ad </color>
+    <color name="Silver">#bdc3c7 </color>
+    <color name="Clouds">#ecf0f1 </color>
+    <color name="WetAsphalt">#34495e </color>
+    <color name="MidnightBlue">#2c3e50 </color>
+    <color name="Concrete">#95a5a6 </color>
+</resources>
