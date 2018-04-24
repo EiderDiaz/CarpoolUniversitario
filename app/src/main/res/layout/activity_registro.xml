@@ -15,7 +15,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        app:srcCompat="@drawable/Carpool_white_logo" />
+        app:srcCompat="@drawable/carpool_white_logo" />
 
     <TextView
         android:drawableEnd="@drawable/ic_help"
@@ -40,7 +40,7 @@
         android:layout_marginTop="201dp"
         android:ems="10"
         android:hint=" Casa"
-        android:background="#110000000"
+        android:background="#11000000"
          />
 
     <EditText
@@ -50,7 +50,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="238dp"
-        android:background="#110000000"
+        android:background="#11000000"
         android:drawableStart="@drawable/ic_place_black_24dp"
         android:ems="10"
         android:hint=" Universidad" />
@@ -68,7 +68,7 @@
     <EditText
         android:id="@+id/txtmatricula"
         android:hint="Matricula"
-        android:background="#110000000"
+        android:background="#11000000"
         android:layout_width="200dp"
         android:layout_height="20dp"
         android:layout_alignParentBottom="true"
@@ -79,7 +79,7 @@
     <EditText
         android:id="@+id/txtsemestre"
         android:hint="Semestre"
-        android:background="#110000000"
+        android:background="#11000000"
         android:layout_width="200dp"
         android:layout_height="20dp"
         android:layout_alignParentBottom="true"
@@ -94,7 +94,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="168dp"
-        android:background="#110000000"
+        android:background="#11000000"
         android:hint="carrera" />
 
 

@@ -15,7 +15,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        app:srcCompat="@drawable/Carpool_white_logo" />
+        app:srcCompat="@drawable/carpool_white_logo" />
 
     <TextView
         android:textAlignment="center"
