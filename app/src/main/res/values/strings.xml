@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Carpool Universitario</string>
+    <string name="title_activity_maps">Map</string>
+
+    <string name="facebook_app_id">163319267672412</string>
+    <string name="fb_login_protocol_scheme">fb163319267672412</string>
+
 </resources>

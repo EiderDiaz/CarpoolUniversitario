@@ -1,79 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@drawable/gradient"
     tools:context=".RegistroActivity">
 
 
+    
     <ImageView
+        android:layout_gravity="center"
         android:id="@+id/imageView"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_marginTop="10dp"
         app:srcCompat="@drawable/carpool_white_logo" />
 
     <TextView
         android:drawableEnd="@drawable/ic_help"
         android:id="@+id/textView"
-        android:textSize="20dp"
+        android:layout_gravity="center"
+        android:textSize="30dp"
+        android:textColor="@color/primary_text"
+        android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="164dp"
-        android:text="Origen Y Destino  " />
-
-
+        android:drawablePadding="5dp"
+        android:text="Origen Y Destino" />
+    
 
     <EditText
+        android:layout_margin="4dp"
+        android:layout_gravity="center"
         android:drawableStart="@drawable/ic_place_black_24dp"
         android:id="@+id/txtorigen"
         android:layout_width="200dp"
-        android:layout_height="20dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="201dp"
+        android:layout_height="30dp"
         android:ems="10"
-        android:hint=" Casa"
+        android:textColorHint="@color/Clouds"
+        android:textColor="@color/primary_text"
+        android:drawablePadding="10dp"
+        android:hint="Casa"
         android:background="#11000000"
          />
 
     <EditText
+       
         android:id="@+id/txtdestino"
         android:layout_width="200dp"
-        android:layout_height="20dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="238dp"
+        android:layout_height="30dp"
         android:background="#11000000"
+        android:drawablePadding="10dp"
+        android:textColorHint="@color/Clouds"
+        android:textColor="@color/primary_text"
+        android:layout_margin="4dp"
+        android:layout_gravity="center"
         android:drawableStart="@drawable/ic_place_black_24dp"
         android:ems="10"
-        android:hint=" Universidad" />
+        android:hint="Universidad" />
 
 
     <TextView
+        android:textColor="@color/primary_text"
+        android:textStyle="bold"
+        android:layout_gravity="center"
         android:drawableEnd="@drawable/ic_help"
-        android:textSize="20dp"
+        android:textSize="30dp"
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="Matriculado  " />
+        android:drawablePadding="10dp"
+        android:text="Escolar" />
 
     <EditText
         android:id="@+id/txtmatricula"
-        android:hint="Matricula"
+        android:hint="Numero de Control"
         android:background="#11000000"
         android:layout_width="200dp"
-        android:layout_height="20dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="239dp"
+        android:layout_height="30dp"
+        android:drawablePadding="10dp"
+        android:textColorHint="@color/Clouds"
+        android:textColor="@color/primary_text"
+        android:layout_margin="4dp"
+        android:layout_gravity="center"
        />
 
     <EditText
@@ -81,37 +92,40 @@
         android:hint="Semestre"
         android:background="#11000000"
         android:layout_width="200dp"
-        android:layout_height="20dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
+        android:layout_height="30dp"
+        android:drawablePadding="10dp"
+        android:textColorHint="@color/Clouds"
+        android:textColor="@color/primary_text"
+        android:layout_margin="4dp"
+        android:layout_gravity="center"
         android:layout_marginBottom="204dp"
         />
 
     <EditText
         android:id="@+id/txtcarrera"
         android:layout_width="200dp"
-        android:layout_height="20dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
+        android:layout_height="30dp"
+        android:drawablePadding="10dp"
+        android:textColorHint="@color/Clouds"
+        android:textColor="@color/primary_text"
+        android:layout_margin="4dp"
+        android:layout_gravity="center"
         android:layout_marginBottom="168dp"
         android:background="#11000000"
         android:hint="carrera" />
 
 
 
-    <Button
-        android:id="@+id/button"
-        android:textColor="@color/Clouds"
-        android:textSize="20dp"
-        android:background="@drawable/rounded_button"
-        android:layout_width="240dp"
-        android:layout_height="40dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="103dp"
-        android:text="Registrate" />
 
 
 
 
-</RelativeLayout>
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp" />
+
+</LinearLayout>

@@ -1,0 +1,36 @@
+<resources>
+    <!--
+    TODO: Before you run your application, you need a Google Maps API key.
+
+    To get one, follow this link, follow the directions and press "Create" at the end:
+
+    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=84:8D:76:AC:1D:3B:01:E7:F0:E9:CF:33:44:E9:5F:4D:7D:30:28:AB%3Bcom.carpooluniversitario.carpooluniversitario.Utils
+
+    You can also add your credentials to an existing key, using these values:
+
+    Package name:
+    84:8D:76:AC:1D:3B:01:E7:F0:E9:CF:33:44:E9:5F:4D:7D:30:28:AB
+
+    SHA-1 certificate fingerprint:
+    84:8D:76:AC:1D:3B:01:E7:F0:E9:CF:33:44:E9:5F:4D:7D:30:28:AB
+hI12rB07Aefw6c8zROlfTX0wKKs=
+keytool -exportcert -alias androiddebugkey -keystore "C:\Users\eider\.android\debug.keystore" | "C:\openssl-0.9.8r-x64_86-wi
+n64-rev2\openssl" sha1 -binary | "C:\openssl-0.9.8r-x64_86-win64-rev2\openssl" base64
+
+    Alternatively, follow the directions here:
+    https://developers.google.com/maps/documentation/android/start#get-key
+
+
+
+
+
+
+keytool -exportcert -alias androiddebugkey -keystore "C:\Users\eider\.android\debug.keystore" | "C:\openssl-0.9.8r-x64_86-win64-rev2\openssl" sha1 -binary | "C:\openssl-0.9.8r-x64_86-win64-rev2\openssl" base64
+
+        40e82a0170553806db79732804888908
+    Once you have your key (it starts with "AIza"), replace the "google_maps_key"
+    string in this file.
+    -->
+
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBeoVfjWpzpvEZ_4t74jnQ9gdxG40OWZxM</string>
+</resources>
