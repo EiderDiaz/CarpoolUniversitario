@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.carpooluniversitario.carpooluniversitario.Utils.SessionManagement;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -37,6 +38,11 @@ public class RegistroActivity extends AppCompatActivity implements Validator.Val
     @NotEmpty(message = "Esta campo es obligatorio")
     EditText txt_origen,txt_destino,txt_numeroDeControl,txt_carrera,txt_semestre;
     Validator validator;
+    SessionManagement session;
+    String firstname = "";
+    String lastname = "";
+    String email = "";
+    String id = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +56,7 @@ public class RegistroActivity extends AppCompatActivity implements Validator.Val
         txt_semestre = findViewById(R.id.txtsemestre);
         validator= new Validator(this);
         validator.setValidationListener(this);
+        session = new SessionManagement(getApplicationContext());
 
 
 
@@ -110,10 +117,7 @@ public class RegistroActivity extends AppCompatActivity implements Validator.Val
         }
 
         private void displayUserInfo(JSONObject object) {
-            String firstname = "";
-            String lastname = "";
-            String email = "";
-            String id = "";
+
             try {
                 firstname = object.getString("first_name");
                 lastname = object.getString("last_name");
@@ -122,7 +126,7 @@ public class RegistroActivity extends AppCompatActivity implements Validator.Val
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            Toast.makeText(this, "nombre:" + firstname + "\napellido:" + lastname + "\nemail:" + email + "\nid:" + id, Toast.LENGTH_SHORT).show();
+           // Toast.makeText(this, "nombre:" + firstname + "\napellido:" + lastname + "\nemail:" + email + "\nid:" + id, Toast.LENGTH_SHORT).show();
         }
     public void disconnectFromFacebook(View view) {
         if (AccessToken.getCurrentAccessToken() != null) {
@@ -142,6 +146,12 @@ public class RegistroActivity extends AppCompatActivity implements Validator.Val
 
     @Override
     public void onValidationSucceeded() {
+        session.createLoginSession(txt_origen.getText().toString()
+                , txt_destino.getText().toString()
+                , txt_numeroDeControl.getText().toString()
+                , txt_semestre.getText().toString()
+                , txt_carrera.getText().toString()
+                ,firstname+""+lastname, email,id);
         goMainScreen();
 
     }

@@ -25,25 +25,19 @@ public class SessionManagement {
     // All Shared Preferences Keys
     private static final String IS_LOGIN = "IsLoggedIn";
 
-
-    // User password (make variable public to access from outside)
-    public static final String KEY_PASSWORD = "password";
-    // Email address (make variable public to access from outside)
-    public static final String KEY_EMAIL = "email";
-    // Email address (make variable public to access from outside)
-    public static final String KEY_TOKEN = "token";
-
-    public static final String KEY_ORIGEN_LATLNG = "origen_latlng";
+   //public static final String KEY_ORIGEN_LATLNG = "origen_latlng";
     public static final String KEY_ORIGEN_NOMBRE = "origen_nombre";
-
-    public static final String KEY_DESTINO_LATLNG = "destino_latlng";
+    //public static final String KEY_DESTINO_LATLNG = "destino_latlng";
     public static final String KEY_DESTINO_NOMBRE = "destino_nombre";
 
 
     public static final String KEY_NUMERO_DE_CONTROL = "numero_de_control";
     public static final String KEY_SEMESTRE = "semestre";
-    public static final String KEY_CARRERA = "semestre";
+    public static final String KEY_CARRERA = "carrera";
 
+    public static final String KEY_NOMBRE = "nombre";
+    public static final String KEY_CORREO = "correo";
+    public static final String KEY_ID_FB = "id_fb";
     // Constructor
     public SessionManagement(Context context){
         this._context = context;
@@ -51,26 +45,20 @@ public class SessionManagement {
         editor = pref.edit();
     }
 
-
-
-    
-    /**
-     * Create login session
-     * */
-    public void createLoginSession(String email, String password, String token, LatLng origen){
+    public void createLoginSession(String origen, String destino, String num_control, String semestre, String carrera,String nombre, String correo,String id_fb){
         // Storing login value as TRUE
         editor.putBoolean(IS_LOGIN, true);
-        // Storing password in pref
-        editor.putString(KEY_PASSWORD, password);
-        editor.putString(KEY_EMAIL, email);
-        editor.putString(KEY_TOKEN, token);
-        editor.putString(KEY_ORIGEN_LATLNG,origen.toString());
-        editor.putString(KEY_ORIGEN_NOMBRE,origen.toString());
-        editor.putString(KEY_DESTINO_LATLNG,origen.toString());
-        editor.putString(KEY_DESTINO_NOMBRE,origen.toString());
-        editor.putString(KEY_ORIGEN_LATLNG,origen.toString());
-        editor.putString(KEY_ORIGEN_LATLNG,origen.toString());
-        editor.putString(KEY_ORIGEN_LATLNG,origen.toString());
+        editor.putString(KEY_ORIGEN_NOMBRE,origen);
+        editor.putString(KEY_DESTINO_NOMBRE,destino);
+        
+        editor.putString(KEY_NUMERO_DE_CONTROL,num_control);
+        editor.putString(KEY_SEMESTRE,semestre);
+        editor.putString(KEY_CARRERA,carrera);
+
+        editor.putString(KEY_NOMBRE,nombre);
+        editor.putString(KEY_CORREO,correo);
+        editor.putString(KEY_ID_FB,id_fb);
+
 
         // commit changes
         editor.apply();
@@ -100,11 +88,17 @@ public class SessionManagement {
      * */
     public HashMap<String, String> getUserDetails(){
         HashMap<String, String> user = new HashMap<String, String>();
-        // user password
-        user.put(KEY_PASSWORD, pref.getString(KEY_PASSWORD, null));
-        // user email id
-        user.put(KEY_EMAIL, pref.getString(KEY_EMAIL, null));
-        user.put(KEY_TOKEN, pref.getString(KEY_TOKEN, null));
+        user.put(KEY_ORIGEN_NOMBRE, pref.getString(KEY_ORIGEN_NOMBRE, null));
+        user.put(KEY_DESTINO_NOMBRE, pref.getString(KEY_DESTINO_NOMBRE, null));
+
+        user.put(KEY_NUMERO_DE_CONTROL, pref.getString(KEY_NUMERO_DE_CONTROL, null));
+        user.put(KEY_SEMESTRE, pref.getString(KEY_SEMESTRE, null));
+        user.put(KEY_CARRERA, pref.getString(KEY_CARRERA, null));
+
+        user.put(KEY_NOMBRE, pref.getString(KEY_NOMBRE, null));
+        user.put(KEY_CORREO, pref.getString(KEY_CORREO, null));
+        user.put(KEY_ID_FB, pref.getString(KEY_ID_FB, null));
+
         // return user
         return user;
     }
