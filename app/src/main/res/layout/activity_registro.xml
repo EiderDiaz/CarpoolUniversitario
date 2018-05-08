@@ -102,6 +102,7 @@
         />
 
     <EditText
+        android:onClick="disconnectFromFacebook"
         android:id="@+id/txtcarrera"
         android:layout_width="200dp"
         android:layout_height="30dp"
