@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="3"
+    android:id="@+id/layoutpadre"
     android:background="@drawable/gradient"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     tools:context=".MainActivity">
