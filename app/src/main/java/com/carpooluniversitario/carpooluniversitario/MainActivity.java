@@ -1,9 +1,11 @@
 package com.carpooluniversitario.carpooluniversitario;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -13,7 +15,6 @@ import com.carpooluniversitario.carpooluniversitario.Utils.SessionManagement;
 import com.facebook.AccessToken;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
-import com.wdullaer.materialdatetimepicker.time.Timepoint;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     SessionManagement session;
 Button btnCasaDestino,btnUniversidadDestino,btnfecha,btnhora,btnConductor,btnPasajero;
 LinearLayout layout;
+FloatingActionButton actionButton;
 String[] infoViaje= new String[5];
     HashMap<String,String> hashMap;
 
@@ -44,6 +46,9 @@ String[] infoViaje= new String[5];
         btnhora = findViewById(R.id.btnhora);
         btnConductor = findViewById(R.id.btnConductor);
         btnPasajero = findViewById(R.id.btnPasajero);
+
+        actionButton = findViewById(R.id.fab);
+        actionButton.setVisibility(View.GONE);
 
         btnCasaDestino.setOnClickListener(clickListener);
         btnUniversidadDestino.setOnClickListener(clickListener);
@@ -110,19 +115,20 @@ String[] infoViaje= new String[5];
     };
 
     private void validarFormularioCompleto() {
-        //
+
         int contador=0;
         for (int i=0;i<infoViaje.length;i++){
             if (infoViaje[i]!=null){
                 Toast.makeText(this, i+":"+infoViaje[i], Toast.LENGTH_SHORT).show();
                 contador++;
+                Log.d("contador", "validarFormularioCompleto: "+contador);
+
             }
         }
-        if (contador==4){
-            Snackbar    snackbar = Snackbar.make(layout, "Mission complete", Snackbar.LENGTH_LONG);
-            snackbar.show();
+        if (contador>4){
+            actionButton.setVisibility(View.VISIBLE);
         }
-        //
+
     }
 
     private void mostrarDialogoDeHora() {
