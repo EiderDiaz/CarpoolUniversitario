@@ -30,6 +30,8 @@ dependencies {
     implementation 'com.facebook.android:facebook-login:[4,5)'
     implementation 'com.mobsandgeeks:android-saripaar:2.0.3'
     implementation 'com.wdullaer:materialdatetimepicker:3.6.0'
+    implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
+
 
 
 }

@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.carpooluniversitario.carpooluniversitario.Utils.SessionManagement;
 import com.facebook.AccessToken;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 Button btnCasaDestino,btnUniversidadDestino,btnfecha,btnhora,btnConductor,btnPasajero;
 LinearLayout layout;
 FloatingActionButton actionButton;
+private Toast toast;
 String[] infoViaje= new String[5];
     HashMap<String,String> hashMap;
 
@@ -49,7 +51,7 @@ String[] infoViaje= new String[5];
 
         actionButton = findViewById(R.id.fab);
         actionButton.setVisibility(View.GONE);
-
+        actionButton.setOnClickListener(clickListener);
         btnCasaDestino.setOnClickListener(clickListener);
         btnUniversidadDestino.setOnClickListener(clickListener);
         btnfecha.setOnClickListener(clickListener);
@@ -104,7 +106,9 @@ String[] infoViaje= new String[5];
                     snackbar.show();
                     infoViaje[4]="conductor";
                     break;
-
+                case R.id.fab:
+                    showList();
+                    break;
 
             }
 
@@ -119,7 +123,7 @@ String[] infoViaje= new String[5];
         int contador=0;
         for (int i=0;i<infoViaje.length;i++){
             if (infoViaje[i]!=null){
-                Toast.makeText(this, i+":"+infoViaje[i], Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, i+":"+infoViaje[i], Toast.LENGTH_SHORT).show();
                 contador++;
                 Log.d("contador", "validarFormularioCompleto: "+contador);
 
@@ -180,7 +184,7 @@ String[] infoViaje= new String[5];
         for (int i = 0; i < days.length; i++) {
             Calendar day = Calendar.getInstance();
             day.add(Calendar.DAY_OF_MONTH, i );
-            days[i ] = day;
+            days[i] = day;
         }
         dpd.setSelectableDays(days);
         dpd.show(getFragmentManager(),"Datepickerdialog");
@@ -196,11 +200,9 @@ String[] infoViaje= new String[5];
 
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-        String date = "You picked the following date: "+dayOfMonth+"/"+(++monthOfYear)+"/"+year;
-        //Toast.makeText(this, date, Toast.LENGTH_SHORT).show();
+        String date = dayOfMonth+"/"+(++monthOfYear)+"/"+year;
         infoViaje[2]=date;
-        Snackbar snackbar = Snackbar
-                .make(layout, "Seleccionaste "+date, Snackbar.LENGTH_LONG);
+        Snackbar snackbar = Snackbar.make(layout, "Seleccionaste "+date, Snackbar.LENGTH_LONG);
         snackbar.show();
     }
 
@@ -209,11 +211,27 @@ String[] infoViaje= new String[5];
         String hourString = hourOfDay < 10 ? "0"+hourOfDay : ""+hourOfDay;
         String minuteString = minute < 10 ? "0"+minute : ""+minute;
         String secondString = second < 10 ? "0"+second : ""+second;
-       // String time = "You picked the following time: "+hourString+"h"+minuteString+"m"+secondString+"s";
         infoViaje[3]=hourString+":"+minuteString;
-        Snackbar snackbar = Snackbar
-                .make(layout, "Seleccionaste "+hourString+"h"+minuteString+"m", Snackbar.LENGTH_LONG);
-
+        Snackbar snackbar = Snackbar.make(layout, "Seleccionaste "+hourString+"h"+minuteString+"m", Snackbar.LENGTH_LONG);
         snackbar.show();
+    }
+
+
+    private void showToast(String message) {
+        if (toast != null) {
+            toast.cancel();
+            toast = null;
+        }
+        toast = Toast.makeText(this, message, Toast.LENGTH_SHORT);
+        toast.show();
+    }
+
+    public void showList() {
+        new MaterialDialog.Builder(this)
+                .title("Estas Seguro de estos datos?")
+                .items(infoViaje)
+                .positiveText("Si, estoy seguro")
+                .negativeText("No, dejame cambiarlos")
+                .show();
     }
 }
