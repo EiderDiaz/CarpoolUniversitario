@@ -128,16 +128,7 @@ public class RegistroActivity extends AppCompatActivity implements Validator.Val
             }
            // Toast.makeText(this, "nombre:" + firstname + "\napellido:" + lastname + "\nemail:" + email + "\nid:" + id, Toast.LENGTH_SHORT).show();
         }
-    public void disconnectFromFacebook(View view) {
-        if (AccessToken.getCurrentAccessToken() != null) {
-            new GraphRequest(AccessToken.getCurrentAccessToken(), "/me/permissions/", null, HttpMethod.DELETE, new GraphRequest.Callback() {
-                @Override
-                public void onCompleted(GraphResponse response) {
-                    LoginManager.getInstance().logOut();
-                }
-            }).executeAsync();
-        }
-    }
+
         protected void onActivityResult(int requestCode, int resultCode, Intent data) {
             super.onActivityResult(requestCode, resultCode, data);
             this.callbackManager.onActivityResult(requestCode, resultCode, data);

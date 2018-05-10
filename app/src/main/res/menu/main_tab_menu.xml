@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_configuracion"
+        android:title="Configuración"/>
+    <item
+        android:id="@+id/menu_acerda"
+        android:title="Acerca"/>
+    <item
+        android:id="@+id/menu_cerrar_session"
+        android:title="Cerrar Sesión"/>
+</menu>

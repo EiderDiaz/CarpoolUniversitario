@@ -8,7 +8,12 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -21,6 +26,10 @@ import com.afollestad.materialdialogs.internal.MDTintHelper;
 import com.afollestad.materialdialogs.internal.ThemeSingleton;
 import com.carpooluniversitario.carpooluniversitario.Utils.SessionManagement;
 import com.facebook.AccessToken;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
+import com.facebook.login.LoginManager;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
@@ -48,6 +57,9 @@ String[] infoViaje= new String[5];
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if (AccessToken.getCurrentAccessToken() == null) {
+            goLoginScreen();
+        }
         session = new SessionManagement(getApplicationContext());
         layout = findViewById(R.id.layoutpadre);
         btnCasaDestino = findViewById(R.id.btnCasaDestino);
@@ -67,9 +79,7 @@ String[] infoViaje= new String[5];
         btnConductor.setOnClickListener(clickListener);
         btnPasajero.setOnClickListener(clickListener);
 
-       if (AccessToken.getCurrentAccessToken() == null) {
-            goLoginScreen();
-        }
+
 
 
          hashMap = session.getUserDetails();
@@ -77,6 +87,44 @@ String[] infoViaje= new String[5];
 
     }
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater=getMenuInflater();
+        inflater.inflate(R.menu.main_tab_menu, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId())
+        {
+            case R.id.menu_configuracion:
+                Toast.makeText(this, "mandar a la pantalla de configuracion", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.menu_acerda:
+                Toast.makeText(this, "mabdar  ala pantalla de acerda de ", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.menu_cerrar_session:
+                disconnectFromFacebook();
+                break;
+        }
+
+        return true;
+    }
+
+    public void disconnectFromFacebook() {
+        if (AccessToken.getCurrentAccessToken() != null) {
+            new GraphRequest(AccessToken.getCurrentAccessToken(), "/me/permissions/", null, HttpMethod.DELETE, new GraphRequest.Callback() {
+                @Override
+                public void onCompleted(GraphResponse response) {
+                    LoginManager.getInstance().logOut();
+                }
+            }).executeAsync();
+        }
+        goLoginScreen();
+    }
 
     private View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
