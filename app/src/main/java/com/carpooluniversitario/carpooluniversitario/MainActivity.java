@@ -1,17 +1,24 @@
 package com.carpooluniversitario.carpooluniversitario;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.internal.MDTintHelper;
+import com.afollestad.materialdialogs.internal.ThemeSingleton;
 import com.carpooluniversitario.carpooluniversitario.Utils.SessionManagement;
 import com.facebook.AccessToken;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
@@ -34,6 +41,7 @@ String[] infoViaje= new String[5];
 
     private DatePickerDialog dpd;
     private TimePickerDialog tpd;
+    private View positiveAction;
 
 
     @Override
@@ -107,7 +115,8 @@ String[] infoViaje= new String[5];
                     infoViaje[4]="conductor";
                     break;
                 case R.id.fab:
-                    showList();
+                 //   showList();
+                    showCustomView();
                     break;
 
             }
@@ -206,6 +215,7 @@ String[] infoViaje= new String[5];
         snackbar.show();
     }
 
+
     @Override
     public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
         String hourString = hourOfDay < 10 ? "0"+hourOfDay : ""+hourOfDay;
@@ -234,4 +244,48 @@ String[] infoViaje= new String[5];
                 .negativeText("No, dejame cambiarlos")
                 .show();
     }
+
+
+    @SuppressWarnings("ResourceAsColor")
+    public void showCustomView() {
+        MaterialDialog dialog =
+                new MaterialDialog.Builder(this)
+                        .title("¿Estas seguro?")
+                        .titleColor(getResources().getColor(R.color.Alizarin))
+                        .customView(R.layout.dialog_customview, true)
+                        .positiveText("si, estoy seguro")
+                        .negativeText("No")
+                        .onPositive(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                Toast.makeText(MainActivity.this, "aqui mando a la otra actividad", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .build();
+
+        positiveAction = dialog.getActionButton(DialogAction.POSITIVE);
+        //noinspection ConstantConditions
+
+
+        // Toggling the show password CheckBox will mask or unmask the password input EditText
+        CheckBox checkbox = dialog.getCustomView().findViewById(R.id.showPassword);
+        checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    positiveAction.setEnabled(true);
+                }
+                else{
+                    positiveAction.setEnabled(false);
+
+                }
+            }
+        });
+
+
+        dialog.show();
+        positiveAction.setEnabled(false); // disabled by default
+    }
+
+
 }
