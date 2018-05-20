@@ -21,10 +21,6 @@ n64-rev2\openssl" sha1 -binary | "C:\openssl-0.9.8r-x64_86-win64-rev2\openssl" b
     https://developers.google.com/maps/documentation/android/start#get-key
 
 
-
-
-
-
 keytool -exportcert -alias androiddebugkey -keystore "C:\Users\eider\.android\debug.keystore" | "C:\openssl-0.9.8r-x64_86-win64-rev2\openssl" sha1 -binary | "C:\openssl-0.9.8r-x64_86-win64-rev2\openssl" base64
 
         40e82a0170553806db79732804888908
@@ -32,5 +28,5 @@ keytool -exportcert -alias androiddebugkey -keystore "C:\Users\eider\.android\de
     string in this file.
     -->
 
-    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBeoVfjWpzpvEZ_4t74jnQ9gdxG40OWZxM</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyB7LLiMs0qNS5VDqMN6wE1eSCD7iVVUSQY</string>
 </resources>

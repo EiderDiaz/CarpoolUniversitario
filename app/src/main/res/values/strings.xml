@@ -3,7 +3,9 @@
     <string name="title_activity_maps">Map</string>
 
     <string name="facebook_app_id">163319267672412</string>
+
     <string name="fb_login_protocol_scheme">fb163319267672412</string>
     <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_activity_select_location">selecciona un lugar</string>
 
 </resources>

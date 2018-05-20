@@ -2,6 +2,7 @@ package com.carpooluniversitario.carpooluniversitario.Utils;
 
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.carpooluniversitario.carpooluniversitario.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -38,7 +39,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
+        Toast.makeText(this, "ñee", Toast.LENGTH_SHORT).show();
         // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(-34, 151);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));

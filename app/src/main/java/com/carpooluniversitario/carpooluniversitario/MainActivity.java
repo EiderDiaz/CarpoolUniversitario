@@ -24,6 +24,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.internal.MDTintHelper;
 import com.afollestad.materialdialogs.internal.ThemeSingleton;
+import com.carpooluniversitario.carpooluniversitario.Utils.MapsActivity;
 import com.carpooluniversitario.carpooluniversitario.Utils.SessionManagement;
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
@@ -306,7 +307,8 @@ String[] infoViaje= new String[5];
                         .onPositive(new MaterialDialog.SingleButtonCallback() {
                             @Override
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                Toast.makeText(MainActivity.this, "aqui mando a la otra actividad", Toast.LENGTH_SHORT).show();
+                                Intent intent =  new Intent(getApplicationContext(),Select_location_onMap.class);
+                                startActivity(intent);
                             }
                         })
                         .build();
