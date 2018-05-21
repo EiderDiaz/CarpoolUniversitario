@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -21,8 +22,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -32,6 +37,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -40,14 +46,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.Callable;
 
 public class Select_location_onMap extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
     private GoogleMap mMap;
     private GoogleApiClient client;
-    private Location lastlocation;
     private LocationRequest locationRequest;
+    private Location lastlocation;
     public static final int PERMISSION_REQUEST_LOCATION_CODE= 99;
+    Drawable icon ;
+    LatLng casa,universidad=null;
+    Button btnsiguiente;
+    TextView  titulo;
 
     private Marker currentLocationMarker;
     @Override
@@ -60,8 +71,27 @@ public class Select_location_onMap extends FragmentActivity implements OnMapRead
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        icon = getResources().getDrawable(R.drawable.carpool_white_logo);
+        btnsiguiente = findViewById(R.id.botonsiguiente);
+        btnsiguiente.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (universidad==null&& casa!=null){
+                 AhoraSeleccionaEscuela();
+                }
+                else{
+                    showMaterialDialog();
 
+                }
+            }
+        });
+        titulo = findViewById(R.id.titulo);
 
+    }
+
+    private void AhoraSeleccionaEscuela() {
+        titulo.setText("Ahora selecciona Tu Universidad");
+        btnsiguiente.setText("Terminar");
     }
 
     public Boolean CheckLocationPermission(){
@@ -101,8 +131,7 @@ public class Select_location_onMap extends FragmentActivity implements OnMapRead
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-
+        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         if (ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
             buildGoogleApiClient();
             mMap.setMyLocationEnabled(true);
@@ -112,79 +141,123 @@ public class Select_location_onMap extends FragmentActivity implements OnMapRead
             @Override
             public void onMapClick(LatLng latLng) {
                 mMap.clear();
-                MarkerOptions marker = new MarkerOptions().position(
-                        new LatLng(latLng.latitude, latLng.longitude)).title("New Marker");
-                mMap.addMarker(marker);
-                // TODO: 13/11/2017 conversion de coordenadas a ciudad o localidad
-                Geocoder gcd = new Geocoder(getApplicationContext(), Locale.getDefault());
-                List<Address> addresses;
-                String cityName="";
-                try {
-                    addresses = gcd.getFromLocation(latLng.latitude, latLng.longitude, 1);
-                    if (addresses.size() > 0)
-                        cityName = addresses.get(0).getLocality();
-                } catch (IOException e) {
-                    Toast.makeText(getApplicationContext(),"error: "+e.getMessage(), Toast.LENGTH_SHORT).show();;
+                if (btnsiguiente.getText().toString().equals("Terminar")) {
+                    Toast.makeText(Select_location_onMap.this, "entro?", Toast.LENGTH_SHORT).show();
+                    addDestinationMarker(latLng);
+                } else {
+                    addHomeMarker(latLng);
                 }
-                Toast.makeText(getApplicationContext(), "LATITUD :"+latLng.latitude+", LONGITUD :"+latLng.longitude+"\nCIUDAD:"+cityName, Toast.LENGTH_SHORT).show();
-                showChangeLangDialog(String.valueOf(latLng.latitude),String.valueOf(latLng.longitude),cityName);
 
             }
         });
     }
-    public void showChangeLangDialog(final String lat,final  String lng,final  String city) {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = this.getLayoutInflater();
-        //final View dialogView = inflater.inflate(R.layout.custom_dialog, null);
-        //dialogBuilder.setView(dialogView);
-        //final EditText edt = (EditText) dialogView.findViewById(R.id.edit1);
-        dialogBuilder.setTitle("Selecciona Ubicación");
-        dialogBuilder.setMessage("Estas seguro que quieres obtener el clima de esta ubicación ("+city+")?");
-        dialogBuilder.setPositiveButton("Si, quiero esta ubicación", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                // TODO: 13/11/2017 startatcityty for resutl
-                Intent returnIntent = new Intent();
-                returnIntent.putExtra("lat",lat);
-                returnIntent.putExtra("lng",lng);
-                returnIntent.putExtra("city",city);
-                setResult(Activity.RESULT_OK,returnIntent);
-                finish();
-            }
-        });
-        dialogBuilder.setNegativeButton("No, quiero otra ubicación", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                mMap.clear();
-            }
-        });
-        AlertDialog b = dialogBuilder.create();
-        b.show();
+
+    private void addDestinationMarker(LatLng latLng) {
+        MarkerOptions marker = new MarkerOptions()
+                .position(new LatLng(latLng.latitude, latLng.longitude))
+                .title("Escuela")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
+                .snippet("esta es mi escuela :)");
+        Marker marker1 = mMap.addMarker(marker);
+        marker1.showInfoWindow();
+        marker1.setDraggable(true);
+        MostrarMas();
+
+        universidad=latLng;
+        addHomeMarker(casa);
+    }
+
+    private void addHomeMarker(LatLng latLng) {
+
+        MarkerOptions marker = new MarkerOptions()
+                .position(new LatLng(latLng.latitude, latLng.longitude))
+                .title("Casa")
+                .snippet("esta es mi casita bonita :)");
+        Marker marker1 = mMap.addMarker(marker);
+        marker1.showInfoWindow();
+        marker1.setDraggable(true);
+        MostrarMas();
+
+        casa=latLng;
+    }
+
+    private void MostrarMas() {
+/*
+este metodo muestra las vistas que estan ocultas
+ */
+    }
+
+    private String obtenerNombreDeCiudad(LatLng latLng) {
+        String cityName="";
+        Geocoder gcd = new Geocoder(getApplicationContext(), Locale.getDefault());
+        List<Address> addresses;
+        try {
+            addresses = gcd.getFromLocation(latLng.latitude, latLng.longitude, 1);
+            if (addresses.size() > 0)
+                cityName = addresses.get(0).getLocality();
+        } catch (IOException e) {
+            Toast.makeText(getApplicationContext(),"error: "+e.getMessage(), Toast.LENGTH_SHORT).show();;
+        }
+        return cityName;
+    }
+
+
+
+    public void showMaterialDialog() {
+        MaterialDialog builder = new MaterialDialog.Builder(this)
+                .title("Hola :)")
+                .backgroundColor(getResources().getColor(R.color.Clouds))
+                .icon(icon)
+                .limitIconToDefaultSize()
+                .content("Estas seguro que esta es tu casa y tu universidad?")
+                .negativeText("No")
+                .positiveText("Si")
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        Intent returnIntent = new Intent();
+                        Bundle args = new Bundle();
+                        args.putParcelable("casa", casa);
+                        args.putParcelable("universidad", universidad);
+                        returnIntent.putExtra("bundle", args);
+                        setResult(Activity.RESULT_OK,returnIntent);
+                        finish();
+
+                    }
+                })
+                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        mMap.clear();
+
+                    }
+                })
+                .build();
+
+        builder.show();
     }
 
     @Override
     public void onBackPressed() {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = this.getLayoutInflater();
-        //final View dialogView = inflater.inflate(R.layout.custom_dialog, null);
-        //dialogBuilder.setView(dialogView);
-        //final EditText edt = (EditText) dialogView.findViewById(R.id.edit1);
-        dialogBuilder.setTitle("Aviso");
-        dialogBuilder.setMessage("Estas seguro que quieres salir de la seleccion de ubicacion?");
-        dialogBuilder.setPositiveButton("Si, quiero salir ", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                Intent returnIntent = new Intent();
-                setResult(Activity.RESULT_CANCELED, returnIntent);
-                finish();
-            }
-        });
-        dialogBuilder.setNegativeButton("No, quiero seguir en este menu", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        });
-        AlertDialog b = dialogBuilder.create();
-        b.show();
 
+        MaterialDialog builder = new MaterialDialog.Builder(this)
+                .title("Aviso")
+                .icon(icon)
+                .limitIconToDefaultSize()
+                .content("Estas seguro que quieres salir de la seleccion de ubicacion?")
+                .positiveText("Si, quiero salir")
+                .negativeText("No")
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        Intent returnIntent = new Intent();
+                        setResult(Activity.RESULT_CANCELED, returnIntent);
+                        finish();
+
+                    }
+                })
+                .build();
+        builder.show();
     }
 
     protected synchronized void buildGoogleApiClient() {
@@ -202,18 +275,15 @@ public class Select_location_onMap extends FragmentActivity implements OnMapRead
 
     @Override
     public void onLocationChanged(Location location) {
-        lastlocation = location;
+        Location lastlocation = location;
         if (currentLocationMarker != null){
             currentLocationMarker.remove();
         }
         LatLng latLng = new LatLng(location.getLatitude(),location.getLongitude());
-       /* MarkerOptions markerOptions= new MarkerOptions();
-        markerOptions.position(latLng);
-        markerOptions.title("current location");
-        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
-        currentLocationMarker = mMap.addMarker(markerOptions);*/
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(12));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(16));
+      //  map.moveCamera(CameraUpdateFactory.newLatLngZoom(data.location_sam, 14f));
+
 
         if (client != null){
             LocationServices.FusedLocationApi.removeLocationUpdates(client,  this);
@@ -231,6 +301,8 @@ public class Select_location_onMap extends FragmentActivity implements OnMapRead
             LocationServices.FusedLocationApi.requestLocationUpdates(client, locationRequest,  this);
         }
     }
+
+
 
     @Override
     public void onConnectionSuspended(int i) {

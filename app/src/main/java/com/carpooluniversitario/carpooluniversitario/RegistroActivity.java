@@ -1,11 +1,13 @@
 package com.carpooluniversitario.carpooluniversitario;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.carpooluniversitario.carpooluniversitario.Utils.SessionManagement;
@@ -20,6 +22,7 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.facebook.share.internal.ShareConstants;
+import com.google.android.gms.maps.model.LatLng;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
@@ -56,10 +59,14 @@ public class RegistroActivity extends AppCompatActivity implements Validator.Val
         txt_semestre = findViewById(R.id.txtsemestre);
         validator= new Validator(this);
         validator.setValidationListener(this);
+        txt_origen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =  new Intent(getApplicationContext(),Select_location_onMap.class);
+                startActivityForResult(intent,1);
+            }
+        });
         session = new SessionManagement(getApplicationContext());
-
-
-
             loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,10 +80,8 @@ public class RegistroActivity extends AppCompatActivity implements Validator.Val
 
 
     }
-
-    private void IniciarSesionFacebook() {
+       private void IniciarSesionFacebook() {
         callbackManager = CallbackManager.Factory.create();
-
         loginButton.setReadPermissions("email","public_profile");
         // Callback registration
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
@@ -130,8 +135,23 @@ public class RegistroActivity extends AppCompatActivity implements Validator.Val
         }
 
         protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-            super.onActivityResult(requestCode, resultCode, data);
-            this.callbackManager.onActivityResult(requestCode, resultCode, data);
+            if (requestCode == 1) {
+                if(resultCode == Activity.RESULT_OK){
+                    Bundle bundle = data.getParcelableExtra("bundle");
+                    LatLng fromPosition = bundle.getParcelable("casa");
+                    LatLng toPosition = bundle.getParcelable("universidad");
+                    Toast.makeText(this, fromPosition+" : "+toPosition, Toast.LENGTH_SHORT).show();
+
+                }
+                if (resultCode == Activity.RESULT_CANCELED) {
+                    //Write your code if there's no result
+                }
+            }
+            else{
+                super.onActivityResult(requestCode, resultCode, data);
+                this.callbackManager.onActivityResult(requestCode, resultCode, data);
+            }
+
         }
 
 

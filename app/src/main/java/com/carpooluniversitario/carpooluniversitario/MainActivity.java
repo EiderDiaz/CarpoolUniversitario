@@ -307,8 +307,7 @@ String[] infoViaje= new String[5];
                         .onPositive(new MaterialDialog.SingleButtonCallback() {
                             @Override
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                Intent intent =  new Intent(getApplicationContext(),Select_location_onMap.class);
-                                startActivity(intent);
+                                Toast.makeText(MainActivity.this, "de aqui mandas para aya", Toast.LENGTH_SHORT).show();
                             }
                         })
                         .build();

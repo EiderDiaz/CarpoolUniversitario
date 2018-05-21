@@ -1,17 +1,67 @@
-<RelativeLayout android:layout_width="match_parent"
+<LinearLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:weightSum="10"
+    android:background="@color/Clouds"
+    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+    <TextView
+        android:id="@+id/titulo"
+        android:textStyle="bold"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
+        android:textColor="@color/colorAccent"
+        android:gravity="center"
+        android:text="Selecciona tu casa en el mapa"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:map="http://schemas.android.com/apk/res-auto"
+        android:layout_margin="5dp"
         xmlns:tools="http://schemas.android.com/tools"
-        android:layout_marginTop="10dp"
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_weight="6"
+        android:layout_height="0dp"
         tools:context="com.example.eider.bitacoradevuelos.MarcadorMapaClima" />
 
 
-</RelativeLayout>
+    <TextView
+        android:visibility="invisible"
+        android:id="@+id/masinfo"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimaryDark"
+        android:text="Ahora proporciona un poco mas de informacion de tu casa"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+
+    <EditText
+        android:visibility="invisible"
+        android:id="@+id/numerodecasa"
+        android:textColor="@color/colorPrimaryDark"
+        android:hint="numero de casa"
+        android:layout_weight="1"
+        android:textSize="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp" />
+
+    <Button
+        android:background="@color/Clouds"
+        android:id="@+id/botonsiguiente"
+        android:layout_gravity="end"
+        android:textColor="@color/colorAccent"
+        android:layout_weight="1"
+        android:paddingEnd="10dp"
+        android:text="siguiente"
+        android:textAlignment="textEnd"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+
+</LinearLayout>
