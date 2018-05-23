@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "160490753535",
+    "firebase_url": "https://gothic-handbook-204622.firebaseio.com",
+    "project_id": "gothic-handbook-204622",
+    "storage_bucket": "gothic-handbook-204622.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:160490753535:android:88942fb4f0f37bd6",
+        "android_client_info": {
+          "package_name": "com.carpooluniversitario.carpooluniversitario"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "160490753535-tl9cbi465jk1iuefo4sp010bjv23oa53.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.carpooluniversitario.carpooluniversitario",
+            "certificate_hash": "848d76ac1d3b01e7f0e9cf3344e95f4d7d3028ab"
+          }
+        },
+        {
+          "client_id": "160490753535-lj5od18bjueh8s7l292534ulda4p9kq9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBjRTzf2wlxnifIvFqOqs2r6fLCLcVYXA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "160490753535-lj5od18bjueh8s7l292534ulda4p9kq9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

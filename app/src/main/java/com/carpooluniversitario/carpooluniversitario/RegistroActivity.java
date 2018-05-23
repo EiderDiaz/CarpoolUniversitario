@@ -2,8 +2,10 @@ package com.carpooluniversitario.carpooluniversitario;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,6 +25,20 @@ import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.facebook.share.internal.ShareConstants;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthCredential;
+import com.google.firebase.auth.FacebookAuthProvider;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
@@ -47,18 +63,29 @@ public class RegistroActivity extends AppCompatActivity implements Validator.Val
     String email = "";
     String id = "";
 
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference myRef = database.getReference("message");
+    private FirebaseAuth firebaseAuth;
+    private FirebaseAuth.AuthStateListener authStateListener;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);
+        session = new SessionManagement(getApplicationContext());
+
+
         loginButton = (LoginButton) findViewById(R.id.login_button);
         txt_origen = findViewById(R.id.txtorigen);
         txt_destino = findViewById(R.id.txtdestino);
         txt_numeroDeControl = findViewById(R.id.txtmatricula);
-        txt_carrera = findViewById(R.id.txtcarrera);
         txt_semestre = findViewById(R.id.txtsemestre);
+        txt_carrera = findViewById(R.id.txtcarrera);
+
         validator= new Validator(this);
         validator.setValidationListener(this);
+
         txt_origen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,7 +93,8 @@ public class RegistroActivity extends AppCompatActivity implements Validator.Val
                 startActivityForResult(intent,1);
             }
         });
-        session = new SessionManagement(getApplicationContext());
+
+
             loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,32 +102,64 @@ public class RegistroActivity extends AppCompatActivity implements Validator.Val
 
             }
         });
+        firebaseAuth = FirebaseAuth.getInstance();
+        authStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                if(firebaseUser != null){
+                    goMainScreen();
+                }
+
+            }
+        };
 
 
 
 
 
     }
-       private void IniciarSesionFacebook() {
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        firebaseAuth.addAuthStateListener(authStateListener);
+        // Read from the database
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                String value = dataSnapshot.getValue(String.class);
+                Toast.makeText(RegistroActivity.this, "value is "+value, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("error", "Failed to read value.", error.toException());
+            }
+        });
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        firebaseAuth.removeAuthStateListener(authStateListener);
+    }
+
+    private void IniciarSesionFacebook() {
         callbackManager = CallbackManager.Factory.create();
         loginButton.setReadPermissions("email","public_profile");
         // Callback registration
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                String userid = loginResult.getAccessToken().getUserId();
-                GraphRequest graphRequest = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
-                    @Override
-                    public void onCompleted(JSONObject object, GraphResponse response) {
-                        displayUserInfo(object);
-
-                    }
-                });
-                Bundle bundle = new Bundle();
-                bundle.putString(GraphRequest.FIELDS_PARAM, "first_name,last_name,email,id");
-                graphRequest.setParameters(bundle);
-                graphRequest.executeAsync();
+                GetUserDataFromFacebook(loginResult);
+                // TODO: 22/05/2018 hacer un wizard para poner el inicio de sesion con facebook en un fragmento o actividad unica que no interfiera con los campos de escolares
                 validator.validate();
+                handleFacebookAccesToken(loginResult.getAccessToken());
 
             }
 
@@ -111,6 +171,42 @@ public class RegistroActivity extends AppCompatActivity implements Validator.Val
             @Override
             public void onError(FacebookException exception) {
                 Toast.makeText(getApplicationContext(), "error: " + exception.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+    }
+
+    private void GetUserDataFromFacebook(LoginResult loginResult) {
+        GraphRequest graphRequest = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+            @Override
+            public void onCompleted(JSONObject object, GraphResponse response) {
+                displayUserInfo(object);
+
+            }
+        });
+        Bundle bundle = new Bundle();
+        bundle.putString(GraphRequest.FIELDS_PARAM, "first_name,last_name,email,id");
+        graphRequest.setParameters(bundle);
+        graphRequest.executeAsync();
+    }
+
+    private void handleFacebookAccesToken(AccessToken accessToken) {
+        AuthCredential credential = FacebookAuthProvider.getCredential(accessToken.getToken());
+        firebaseAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if ((task.isSuccessful())) {
+                    Toast.makeText(getApplicationContext(), "todo bien", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "error en autenticacion"+task.getException(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        }).addOnFailureListener(this, new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(RegistroActivity.this, "fallo: "+e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -138,10 +234,11 @@ public class RegistroActivity extends AppCompatActivity implements Validator.Val
             if (requestCode == 1) {
                 if(resultCode == Activity.RESULT_OK){
                     Bundle bundle = data.getParcelableExtra("bundle");
-                    LatLng fromPosition = bundle.getParcelable("casa");
+                     LatLng fromPosition = bundle.getParcelable("casa");
                     LatLng toPosition = bundle.getParcelable("universidad");
-                    Toast.makeText(this, fromPosition+" : "+toPosition, Toast.LENGTH_SHORT).show();
-
+                    txt_origen.setText(fromPosition.toString());
+                    txt_destino.setText(toPosition.toString());
+                    //Toast.makeText(this, fromPosition+" : "+toPosition, Toast.LENGTH_SHORT).show();
                 }
                 if (resultCode == Activity.RESULT_CANCELED) {
                     //Write your code if there's no result
@@ -163,7 +260,6 @@ public class RegistroActivity extends AppCompatActivity implements Validator.Val
                 , txt_semestre.getText().toString()
                 , txt_carrera.getText().toString()
                 ,firstname+""+lastname, email,id);
-        goMainScreen();
 
     }
 

@@ -31,6 +31,8 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.HttpMethod;
 import com.facebook.login.LoginManager;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
@@ -58,9 +60,16 @@ String[] infoViaje= new String[5];
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if (AccessToken.getCurrentAccessToken() == null) {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if(user!=null){
+            Toast.makeText(this, user.getDisplayName(), Toast.LENGTH_SHORT).show();
+        }
+        else {
             goLoginScreen();
         }
+
+
+
         session = new SessionManagement(getApplicationContext());
         layout = findViewById(R.id.layoutpadre);
         btnCasaDestino = findViewById(R.id.btnCasaDestino);
@@ -108,7 +117,9 @@ String[] infoViaje= new String[5];
                 Toast.makeText(this, "mabdar  ala pantalla de acerda de ", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.menu_cerrar_session:
+                FirebaseAuth.getInstance().signOut();
                 disconnectFromFacebook();
+                goLoginScreen();
                 break;
         }
 
@@ -124,7 +135,7 @@ String[] infoViaje= new String[5];
                 }
             }).executeAsync();
         }
-        goLoginScreen();
+
     }
 
     private View.OnClickListener clickListener = new View.OnClickListener() {
