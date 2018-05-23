@@ -5,7 +5,7 @@ import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
-public class mFirebaseMessagingService extends FirebaseMessagingService {
+public class MiFirebaseMessagingService extends FirebaseMessagingService {
 private final String TAG = "NOTIFICATION X2";
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -14,7 +14,7 @@ private final String TAG = "NOTIFICATION X2";
         Log.d(TAG, "mensaje recibido de : "+from);
 
         if (remoteMessage.getNotification() != null){
-            Log.d(TAG, "notificacion: "+remoteMessage.getNotification().getBody());
+            Log.d(TAG, "Push Notificacion: "+remoteMessage.getNotification().getBody());
         }
 
     }
