@@ -62,6 +62,7 @@ public class RegistroActivity extends AppCompatActivity implements Validator.Val
     String lastname = "";
     String email = "";
     String id = "";
+    Button buttonRegitro;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("message");
@@ -74,7 +75,14 @@ public class RegistroActivity extends AppCompatActivity implements Validator.Val
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);
         session = new SessionManagement(getApplicationContext());
-
+        buttonRegitro = findViewById(R.id.botonregistrarse);
+        buttonRegitro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),StepsSignUpActivity.class);
+                startActivity(intent);
+            }
+        });
 
         loginButton = (LoginButton) findViewById(R.id.login_button);
         txt_origen = findViewById(R.id.txtorigen);

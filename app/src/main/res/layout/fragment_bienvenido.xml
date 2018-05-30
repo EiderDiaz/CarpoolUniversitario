@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/Clouds"
+    android:fitsSystemWindows="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:gravity="top|bottom|left|right|center_vertical|fill_vertical|center_horizontal|fill_horizontal|center|fill|start|end"
+            android:orientation="vertical"
+            android:id="@+id/lyt_no_connection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
+            <ImageView
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:src="@drawable/carpoolshutterstock" />
+            <TextView
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Display1"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BIENVENIDO!" />
+            <TextView android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:textColor="@color/colorPrimary"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_large"
+                android:text="Comparte tu carro para ir a ala universidad y vive esta increible experiencia " />
+            <android.support.v7.widget.AppCompatButton
+                android:textColor="@color/Clouds"
+                android:id="@+id/btnContinuar"
+                android:background="@drawable/btn_rounded_primary"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_large"
+                android:text="Continuar" />
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

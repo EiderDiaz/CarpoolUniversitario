@@ -117,7 +117,13 @@
 
 
 
-
+    <Button
+        android:id="@+id/botonregistrarse"
+    android:textColor="@color/Clouds"
+    android:text="registrate"
+    android:background="@drawable/btn_rounded_primary"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
 
 
     <com.facebook.login.widget.LoginButton
