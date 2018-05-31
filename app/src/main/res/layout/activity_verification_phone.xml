@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/grey_3"
+    android:fitsSystemWindows="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:gravity="top|bottom|left|right|center_vertical|fill_vertical|center_horizontal|fill_horizontal|center|fill|start|end"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_width="220dp"
+            android:layout_height="220dp"
+            android:src="@drawable/img_number_verification" />
+        <TextView
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:textColor="@color/grey_80"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Verifica tu cuenta" />
+        <TextView
+            android:gravity="center"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+            android:textColor="@color/grey_60"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:text="Please enter your mobile number to receive a verification code. Carrier rates may apply" />
+        <LinearLayout android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_xlarge"
+            android:layout_marginBottom="@dimen/spacing_large">
+            <android.support.design.widget.TextInputEditText
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
+                android:textColor="@color/grey_80"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+61"
+                android:maxLines="1"
+                android:singleLine="true" />
+            <View
+                android:layout_width="1dp"
+                android:layout_height="1dp" />
+            <android.support.design.widget.TextInputEditText
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                android:textStyle="bold"
+                android:textColor="@color/grey_90"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="9767 0587 7834"
+                android:hint="Phone Number"
+                android:maxLines="1"
+                android:singleLine="true">
+                <requestFocus />
+            </android.support.design.widget.TextInputEditText>
+        </LinearLayout>
+        <android.support.v7.widget.AppCompatButton
+            android:textColor="@color/grey_10"
+            android:layout_gravity="center"
+            android:background="@drawable/btn_rounded_primary"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:text="CONTINUE" />
+        <android.support.v7.widget.AppCompatButton
+            android:layout_gravity="center"
+            android:textColor="@color/grey_40"
+            android:gravity="top|bottom|left|right|center_vertical|fill_vertical|center_horizontal|fill_horizontal|center|fill|start|end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No recibi el codigo"
+            style="@style/Widget.AppCompat.Button.Borderless" />
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/Clouds"
+    tools:context=".Steps_SignIn_Fragments.PersonalDataFragment">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/lyt_form"
+        android:padding="@dimen/spacing_large"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+<!-- inicio renglon -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="@dimen/spacing_mlarge"
+                android:tint="@color/GreenSea"
+                android:src="@drawable/ic_person" />
+
+            <android.support.design.widget.TextInputLayout
+                android:padding="10sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:defaultFocusHighlightEnabled="true"
+                    android:textColorHighlight="@color/GreenSea"
+                    android:id="@+id/input_nombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Nombre y apellido"
+                    android:inputType="textAutoComplete"
+                    android:textColorHint="#05ab9a" />
+            </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
+
+        <!-- fin renglon -->
+
+
+        <!-- inicio renglon -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="@dimen/spacing_mlarge"
+                android:tint="@color/GreenSea"
+                android:src="@drawable/ic_email_" />
+
+            <android.support.design.widget.TextInputLayout
+                android:padding="10sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:defaultFocusHighlightEnabled="true"
+                    android:textColorHighlight="@color/GreenSea"
+                    android:id="@+id/input_correo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Correo"
+                    android:inputType="textEmailAddress"
+                    android:textColorHint="#05ab9a" />
+            </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
+
+        <!-- fin renglon -->
+
+
+        <!-- inicio renglon -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="@dimen/spacing_mlarge"
+                android:tint="@color/GreenSea"
+                android:src="@drawable/ic_key" />
+
+            <android.support.design.widget.TextInputLayout
+                android:padding="10sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:defaultFocusHighlightEnabled="true"
+                    android:textColorHighlight="@color/GreenSea"
+                    android:id="@+id/input_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Contraseña"
+                    android:inputType="textEmailAddress"
+                    android:textColorHint="#05ab9a" />
+            </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
+        <!-- fin renglon -->
+
+        <!-- inicio renglon -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="@dimen/spacing_mlarge"
+                android:tint="@color/GreenSea"
+                android:src="@drawable/ic_key" />
+
+            <android.support.design.widget.TextInputLayout
+                android:padding="10sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:defaultFocusHighlightEnabled="true"
+                    android:textColorHighlight="@color/GreenSea"
+                    android:id="@+id/input_password_repetir"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Repetir Contraseña"
+                    android:inputType="textEmailAddress"
+                    android:textColorHint="#05ab9a" />
+            </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
+
+        <!-- fin renglon -->
+    </LinearLayout>
+
+    </LinearLayout>

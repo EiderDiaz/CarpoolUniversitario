@@ -41,7 +41,7 @@ import java.util.List;
 import java.util.Locale;
 
 
-public class CasaDataFragment extends Fragment  implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
+public class EscuelaDataFragment extends Fragment  implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
     private GoogleMap mMap;
     private GoogleApiClient client;
@@ -51,7 +51,7 @@ public class CasaDataFragment extends Fragment  implements OnMapReadyCallback, G
     private  Context mContext;
     private Marker currentLocationMarker;
 
-    public CasaDataFragment() {
+    public EscuelaDataFragment() {
         // Required empty public constructor
     }
 
@@ -67,7 +67,7 @@ public class CasaDataFragment extends Fragment  implements OnMapReadyCallback, G
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View Rootview =inflater.inflate(R.layout.fragment_casa_data, container, false);
+        View Rootview =inflater.inflate(R.layout.fragment_escuela_data, container, false);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             CheckLocationPermission();
         }
@@ -79,7 +79,7 @@ public class CasaDataFragment extends Fragment  implements OnMapReadyCallback, G
         botonsiguiente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewPager.setCurrentItem(2);
+                viewPager.setCurrentItem(3);
 
             }
         });
@@ -195,29 +195,18 @@ public class CasaDataFragment extends Fragment  implements OnMapReadyCallback, G
                 mMap.clear();
                 MarkerOptions markerOptions = new MarkerOptions()
                         .position(new LatLng(latLng.latitude, latLng.longitude))
-                        .title("Mi Casa");
+                        .title("Mi Universidad")
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN));
                 Marker marker = mMap.addMarker(markerOptions);
                 marker.showInfoWindow();
                 marker.setDraggable(true);
                 Toast.makeText(mContext, "LATITUD :"+latLng.latitude+", LONGITUD :"+latLng.longitude, Toast.LENGTH_SHORT).show();
 
+
             }
         });
     }
 
-    private String obtenerNombreDeCiudad(LatLng latLng) {
-        String cityName="";
-        Geocoder gcd = new Geocoder(mContext, Locale.getDefault());
-        List<Address> addresses;
-        try {
-            addresses = gcd.getFromLocation(latLng.latitude, latLng.longitude, 1);
-            if (addresses.size() > 0)
-                cityName = addresses.get(0).getLocality();
-        } catch (IOException e) {
-            Toast.makeText(mContext,"error: "+e.getMessage(), Toast.LENGTH_SHORT).show();;
-        }
-        return cityName;
-    }
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

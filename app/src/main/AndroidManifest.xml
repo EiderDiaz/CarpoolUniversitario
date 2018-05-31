@@ -41,18 +41,18 @@
             android:name=".Utils.MapsActivity"
             android:label="@string/title_activity_maps" />
         <activity
-            android:name=".Select_location_onMap"
+            android:name=".Utils.Select_location_onMap"
             android:label="@string/title_activity_select_location" />
 
         <service
-            android:name=".MiFirebaseMessagingService"
+            android:name=".Firebase.MiFirebaseMessagingService"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
         <service
-            android:name=".MiFirebaseInstanceIdService"
+            android:name=".Firebase.MiFirebaseInstanceIdService"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />

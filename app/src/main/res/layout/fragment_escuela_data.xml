@@ -14,7 +14,7 @@
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
         android:textColor="@color/colorAccent"
         android:gravity="center"
-        android:text="Selecciona tu casa en el mapa"
+        android:text="Selecciona tu escuela en el mapa"
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="0dp" />
@@ -37,7 +37,7 @@
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
         android:textAlignment="center"
         android:textColor="@color/colorPrimaryDark"
-        android:text="Ahora proporciona un poco mas de informacion de tu casa"
+        android:text="Ahora proporciona un poco mas de informacion de tu escuela"
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="0dp" />

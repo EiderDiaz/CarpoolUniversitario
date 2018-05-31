@@ -16,10 +16,14 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 
 import com.carpooluniversitario.carpooluniversitario.Steps_SignIn_Fragments.BienvenidoFragment;
 import com.carpooluniversitario.carpooluniversitario.Steps_SignIn_Fragments.CasaDataFragment;
+import com.carpooluniversitario.carpooluniversitario.Steps_SignIn_Fragments.ConfirmFragment;
+import com.carpooluniversitario.carpooluniversitario.Steps_SignIn_Fragments.EscuelaDataFragment;
+import com.carpooluniversitario.carpooluniversitario.Steps_SignIn_Fragments.PersonalDataFragment;
 
 import java.security.Provider;
 import java.util.ArrayList;
@@ -49,6 +53,7 @@ public class StepsSignUpActivity extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setVisibility(View.GONE);
         viewPager = (ViewPager) findViewById(R.id.container);
         setupViewPager(viewPager);
         tabLayout = (TabLayout) findViewById(R.id.tablayout);
@@ -107,9 +112,9 @@ public class StepsSignUpActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         adapter.addFragment(new BienvenidoFragment(), "BIENVENIDO");
         adapter.addFragment(new CasaDataFragment(), "CASA");
-        adapter.addFragment(new CasaDataFragment(), "ESCUELA");
-        adapter.addFragment(new CasaDataFragment(), "TU");
-        adapter.addFragment(new CasaDataFragment(), "CONFIRMAR");
+        adapter.addFragment(new EscuelaDataFragment(), "ESCUELA");
+        adapter.addFragment(new PersonalDataFragment(), "TU");
+        adapter.addFragment(new ConfirmFragment(), "CONFIRMAR");
         viewPager.setAdapter(adapter);
     }
 
