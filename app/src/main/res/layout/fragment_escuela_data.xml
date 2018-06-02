@@ -30,27 +30,96 @@
         android:layout_height="0dp"
         tools:context="com.carpooluniversitario.carpooluniversitario.StepsSignUpActivity" />
 
-
     <TextView
-        android:visibility="invisible"
         android:id="@+id/masinfo"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
         android:textAlignment="center"
         android:textColor="@color/colorPrimaryDark"
-        android:text="Ahora proporciona un poco mas de informacion de tu escuela"
+        android:text="informacion universitaria"
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="0dp" />
 
-    <EditText
-        android:visibility="invisible"
-        android:id="@+id/numerodecasa"
-        android:textColor="@color/colorPrimaryDark"
-        android:hint="numero de casa"
+    <LinearLayout
         android:layout_weight="1"
-        android:textSize="15dp"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp" />
+        android:orientation="vertical"
+        android:id="@+id/lyt_form"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <!-- inicio renglon -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:background="@color/Clouds"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="@dimen/spacing_mlarge"
+                android:tint="@color/GreenSea"
+                android:src="@drawable/ic_school_black_24dp" />
+
+            <android.support.design.widget.TextInputLayout
+                android:padding="8sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:textSize="12sp"
+                    android:defaultFocusHighlightEnabled="true"
+                    android:textColorHighlight="@color/GreenSea"
+                    android:id="@+id/input_calle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Numero de control"
+                    android:inputType="textAutoComplete"
+                    android:textColorHint="#05ab9a" />
+            </android.support.design.widget.TextInputLayout>
+
+
+        </LinearLayout>
+
+        <!-- fin renglon -->
+
+        <!-- inicio renglon -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:background="@color/Clouds"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="@dimen/spacing_mlarge"
+                android:tint="@color/GreenSea"
+                android:src="@drawable/ic_school_black_24dp" />
+
+            <android.support.design.widget.TextInputLayout
+                android:padding="8sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:textSize="12sp"
+                    android:defaultFocusHighlightEnabled="true"
+                    android:textColorHighlight="@color/GreenSea"
+                    android:id="@+id/input_carrera"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Carrera y semestre"
+                    android:inputType="textAutoComplete"
+                    android:textColorHint="#05ab9a" />
+            </android.support.design.widget.TextInputLayout>
+
+
+        </LinearLayout>
+
+        <!-- fin renglon -->
+    </LinearLayout>
 
     <Button
         android:background="@color/Clouds"

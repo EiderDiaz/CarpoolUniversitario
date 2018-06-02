@@ -19,6 +19,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.carpooluniversitario.carpooluniversitario.R;
@@ -50,6 +52,10 @@ public class CasaDataFragment extends Fragment  implements OnMapReadyCallback, G
     public static final int PERMISSION_REQUEST_LOCATION_CODE= 99;
     private  Context mContext;
     private Marker currentLocationMarker;
+    LinearLayout layoutForm ;
+    TextView masinfo;
+
+
 
     public CasaDataFragment() {
         // Required empty public constructor
@@ -83,7 +89,8 @@ public class CasaDataFragment extends Fragment  implements OnMapReadyCallback, G
 
             }
         });
-
+        layoutForm = Rootview.findViewById(R.id.lyt_form);
+        masinfo = Rootview.findViewById(R.id.masinfo);
         return  Rootview;
 
     }
@@ -199,10 +206,17 @@ public class CasaDataFragment extends Fragment  implements OnMapReadyCallback, G
                 Marker marker = mMap.addMarker(markerOptions);
                 marker.showInfoWindow();
                 marker.setDraggable(true);
+                ExtraInfoVisible();
                 Toast.makeText(mContext, "LATITUD :"+latLng.latitude+", LONGITUD :"+latLng.longitude, Toast.LENGTH_SHORT).show();
 
             }
         });
+    }
+
+    private void ExtraInfoVisible() {
+        masinfo.setVisibility(View.VISIBLE);
+        layoutForm.setVisibility(View.VISIBLE);
+
     }
 
     private String obtenerNombreDeCiudad(LatLng latLng) {
