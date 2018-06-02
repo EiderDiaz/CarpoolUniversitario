@@ -65,7 +65,7 @@ public class RegistroActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registro);
+        setContentView(R.layout.activity_verification_image);
         session = new SessionManagement(getApplicationContext());
         buttonRegitro = findViewById(R.id.botonregistrarse);
         buttonRegitro.setOnClickListener(new View.OnClickListener() {

@@ -69,4 +69,7 @@
     <color name="grey_800">#424242</color>
     <color name="grey_90">#263238</color>
     <color name="grey_900">#212121</color>
+
+    <color name="overlay_dark_70">#b3000000</color>
+
 </resources>
