@@ -47,25 +47,20 @@ import java.util.List;
 
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK;
 
-public class RegistroActivity extends AppCompatActivity implements Validator.ValidationListener{
+public class RegistroActivity extends AppCompatActivity {
 
     CallbackManager callbackManager;
     LoginButton loginButton;
-    @NotEmpty(message = "Esta campo es obligatorio")
-    EditText txt_origen,txt_destino,txt_numeroDeControl,txt_carrera,txt_semestre;
-    Validator validator;
+    Button buttonRegitro;
     SessionManagement session;
     String firstname = "";
     String lastname = "";
     String email = "";
     String id = "";
-    Button buttonRegitro;
-
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("message");
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,22 +77,6 @@ public class RegistroActivity extends AppCompatActivity implements Validator.Val
         });
 
         loginButton = (LoginButton) findViewById(R.id.login_button);
-        txt_origen = findViewById(R.id.txtorigen);
-        txt_destino = findViewById(R.id.txtdestino);
-        txt_numeroDeControl = findViewById(R.id.txtmatricula);
-        txt_semestre = findViewById(R.id.txtsemestre);
-        txt_carrera = findViewById(R.id.txtcarrera);
-
-        validator= new Validator(this);
-        validator.setValidationListener(this);
-
-        txt_origen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent =  new Intent(getApplicationContext(),Select_location_onMap.class);
-                startActivityForResult(intent,1);
-            }
-        });
 
 
             loginButton.setOnClickListener(new View.OnClickListener() {
@@ -163,7 +142,6 @@ public class RegistroActivity extends AppCompatActivity implements Validator.Val
             public void onSuccess(LoginResult loginResult) {
                 GetUserDataFromFacebook(loginResult);
                 // TODO: 22/05/2018 hacer un wizard para poner el inicio de sesion con facebook en un fragmento o actividad unica que no interfiera con los campos de escolares
-                validator.validate();
                 handleFacebookAccesToken(loginResult.getAccessToken());
 
             }
@@ -232,53 +210,15 @@ public class RegistroActivity extends AppCompatActivity implements Validator.Val
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-           // Toast.makeText(this, "nombre:" + firstname + "\napellido:" + lastname + "\nemail:" + email + "\nid:" + id, Toast.LENGTH_SHORT).show();
         }
 
         protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-            if (requestCode == 1) {
-                if(resultCode == Activity.RESULT_OK){
-                    Bundle bundle = data.getParcelableExtra("bundle");
-                     LatLng fromPosition = bundle.getParcelable("casa");
-                    LatLng toPosition = bundle.getParcelable("universidad");
-                    txt_origen.setText(fromPosition.toString());
-                    txt_destino.setText(toPosition.toString());
-                    //Toast.makeText(this, fromPosition+" : "+toPosition, Toast.LENGTH_SHORT).show();
-                }
-                if (resultCode == Activity.RESULT_CANCELED) {
-                    //Write your code if there's no result
-                }
-            }
-            else{
                 super.onActivityResult(requestCode, resultCode, data);
                 this.callbackManager.onActivityResult(requestCode, resultCode, data);
-            }
+
 
         }
 
 
-    @Override
-    public void onValidationSucceeded() {
-        session.createLoginSession(txt_origen.getText().toString()
-                , txt_destino.getText().toString()
-                , txt_numeroDeControl.getText().toString()
-                , txt_semestre.getText().toString()
-                , txt_carrera.getText().toString()
-                ,firstname+""+lastname, email,id);
 
-    }
-
-    @Override
-    public void onValidationFailed(List<ValidationError> errors) {
-        for (ValidationError error : errors) {
-            View view = error.getView();
-            String message = error.getCollatedErrorMessage(this);
-            // Display error messages ;)
-            if (view instanceof EditText) {
-                ((EditText) view).setError(message);
-            } else {
-                Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-            }
-        }
-    }
 }

@@ -1,6 +1,7 @@
 package com.carpooluniversitario.carpooluniversitario;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
@@ -110,10 +111,10 @@ public class StepsSignUpActivity extends AppCompatActivity {
 
 
     private void setupViewPager(ViewPager viewPager) {
-        adapter.addFragment(new BienvenidoFragment(), "BIENVENIDO");
+       // adapter.addFragment(new BienvenidoFragment(), "BIENVENIDO");
         adapter.addFragment(new CasaDataFragment(), "CASA");
         adapter.addFragment(new EscuelaDataFragment(), "ESCUELA");
-        adapter.addFragment(new PersonalDataFragment(), "TU");
+        //adapter.addFragment(new PersonalDataFragment(), "TU");
         adapter.addFragment(new ConfirmFragment(), "CONFIRMAR");
         viewPager.setAdapter(adapter);
     }
@@ -149,5 +150,8 @@ public class StepsSignUpActivity extends AppCompatActivity {
         }
 
     }
+
+
+
 
 }

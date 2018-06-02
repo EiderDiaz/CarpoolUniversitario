@@ -7,6 +7,30 @@
     android:background="@color/Clouds"
     tools:context=".Steps_SignIn_Fragments.PersonalDataFragment">
 
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp" />
+
+    <TextView
+        android:textSize="20dp"
+        android:textAlignment="center"
+        android:text="O"
+        android:textColor="@color/primary_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/colorAccent" />
+
     <LinearLayout
         android:orientation="vertical"
         android:id="@+id/lyt_form"
@@ -142,5 +166,15 @@
 
         <!-- fin renglon -->
     </LinearLayout>
+
+    <android.support.v7.widget.AppCompatButton
+        android:layout_gravity="center"
+        android:textColor="@color/Clouds"
+        android:id="@+id/btnContinuar"
+        android:background="@drawable/btn_rounded_primary"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_large"
+        android:text="Registrarme" />
 
     </LinearLayout>

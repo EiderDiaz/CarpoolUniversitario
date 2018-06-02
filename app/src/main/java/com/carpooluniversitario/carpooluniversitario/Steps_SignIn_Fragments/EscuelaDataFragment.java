@@ -79,7 +79,7 @@ public class EscuelaDataFragment extends Fragment  implements OnMapReadyCallback
         botonsiguiente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewPager.setCurrentItem(3);
+                viewPager.setCurrentItem(2);
 
             }
         });

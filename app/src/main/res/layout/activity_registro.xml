@@ -1,137 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/grey_3"
+    android:fitsSystemWindows="true"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/gradient"
-    tools:context=".RegistroActivity">
-
-
-    
-    <ImageView
-        android:layout_gravity="center"
-        android:id="@+id/imageView"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        android:layout_marginTop="10dp"
-        app:srcCompat="@drawable/carpool_white_logo" />
-
-    <TextView
-        android:drawableEnd="@drawable/ic_help"
-        android:id="@+id/textView"
-        android:layout_gravity="center"
-        android:textSize="30dp"
-        android:textColor="@color/primary_text"
-        android:textStyle="bold"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:gravity="top|bottom|left|right|center_vertical|fill_vertical|center_horizontal|fill_horizontal|center|fill|start|end"
+        android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawablePadding="5dp"
-        android:text="Origen Y Destino" />
-    
-
-    <EditText
-        android:layout_margin="4dp"
-        android:layout_gravity="center"
-        android:drawableStart="@drawable/ic_place_black_24dp"
-        android:id="@+id/txtorigen"
-        android:layout_width="200dp"
-        android:layout_height="30dp"
-        android:ems="10"
-        android:textColorHint="@color/Clouds"
-        android:textColor="@color/primary_text"
-        android:drawablePadding="10dp"
-        android:hint="Casa"
-        android:background="#11000000"
-         />
-
-    <EditText
-       
-        android:id="@+id/txtdestino"
-        android:layout_width="200dp"
-        android:layout_height="30dp"
-        android:background="#11000000"
-        android:drawablePadding="10dp"
-        android:textColorHint="@color/Clouds"
-        android:textColor="@color/primary_text"
-        android:layout_margin="4dp"
-        android:layout_gravity="center"
-        android:drawableStart="@drawable/ic_place_black_24dp"
-        android:ems="10"
-        android:hint="Universidad" />
-
-
-    <TextView
-        android:textColor="@color/primary_text"
-        android:textStyle="bold"
-        android:layout_gravity="center"
-        android:drawableEnd="@drawable/ic_help"
-        android:textSize="30dp"
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:drawablePadding="10dp"
-        android:text="Escolar" />
-
-    <EditText
-        android:id="@+id/txtmatricula"
-        android:hint="Numero de Control"
-        android:background="#11000000"
-        android:layout_width="200dp"
-        android:layout_height="30dp"
-        android:drawablePadding="10dp"
-        android:textColorHint="@color/Clouds"
-        android:textColor="@color/primary_text"
-        android:layout_margin="4dp"
-        android:layout_gravity="center"
-       />
-
-    <EditText
-        android:id="@+id/txtsemestre"
-        android:hint="Semestre"
-        android:background="#11000000"
-        android:layout_width="200dp"
-        android:layout_height="30dp"
-        android:drawablePadding="10dp"
-        android:textColorHint="@color/Clouds"
-        android:textColor="@color/primary_text"
-        android:layout_margin="4dp"
-        android:layout_gravity="center"
-        android:layout_marginBottom="204dp"
-        />
-
-    <EditText
-        android:id="@+id/txtcarrera"
-        android:layout_width="200dp"
-        android:layout_height="30dp"
-        android:drawablePadding="10dp"
-        android:textColorHint="@color/Clouds"
-        android:textColor="@color/primary_text"
-        android:layout_margin="4dp"
-        android:layout_gravity="center"
-        android:layout_marginBottom="168dp"
-        android:background="#11000000"
-        android:hint="carrera" />
+        android:layout_centerInParent="true">
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_width="220dp"
+            android:layout_height="220dp"
+            android:src="@drawable/img_number_verification" />
+        <TextView
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:textColor="@color/grey_80"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Comparte tu Vehiculo" />
+        <TextView
+            android:gravity="center"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+            android:textColor="@color/grey_60"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:text="Reduce  el tráfico y conoce nueva gente al transportarte a la escuela, mientras ganas promociones exclusivas" />
 
 
 
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/login_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"/>
 
-    <Button
-        android:id="@+id/botonregistrarse"
-    android:textColor="@color/Clouds"
-    android:text="registrate"
-    android:background="@drawable/btn_rounded_primary"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content" />
 
 
-    <com.facebook.login.widget.LoginButton
-        android:id="@+id/login_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp" />
+        <android.support.v7.widget.AppCompatButton
+            android:layout_gravity="center"
+            android:id="@+id/botonregistrarse"
+            android:textColor="@color/colorPrimary"
+            android:gravity="top|bottom|left|right|center_vertical|fill_vertical|center_horizontal|fill_horizontal|center|fill|start|end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Registrarme"
+            style="@style/Widget.AppCompat.Button.Borderless" />
 
-</LinearLayout>
+        <android.support.v7.widget.AppCompatButton
+            android:layout_gravity="center"
+            android:textColor="@color/grey_40"
+            android:gravity="top|bottom|left|right|center_vertical|fill_vertical|center_horizontal|fill_horizontal|center|fill|start|end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No recibi el codigo"
+            style="@style/Widget.AppCompat.Button.Borderless" />
+
+    </LinearLayout>
+</RelativeLayout>
+
+
+

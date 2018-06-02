@@ -85,7 +85,7 @@ public class CasaDataFragment extends Fragment  implements OnMapReadyCallback, G
         botonsiguiente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewPager.setCurrentItem(2);
+                viewPager.setCurrentItem(1);
 
             }
         });
