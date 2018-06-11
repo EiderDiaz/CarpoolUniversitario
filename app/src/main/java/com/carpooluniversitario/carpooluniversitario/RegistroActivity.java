@@ -30,7 +30,10 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.ProviderQueryResult;
+import com.google.firebase.auth.SignInMethodQueryResult;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -82,6 +85,7 @@ public class RegistroActivity extends AppCompatActivity {
             loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 IniciarSesionFacebook();
 
             }
@@ -90,18 +94,41 @@ public class RegistroActivity extends AppCompatActivity {
         authStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-                if(firebaseUser != null){
+                final FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                if (firebaseUser != null) {
                     goMainScreen();
-                }
 
+                    /*
+                         if (firebaseUser.isEmailVerified()){
+                        goMainScreen();
+                    }
+                    else{
+                        Intent intent = new Intent(getApplicationContext(),StepsSignUpActivity.class);
+                      //  startActivity(intent);
+                    }
+                     */
+
+                }
             }
+
+
         };
 
 
+    }
 
 
 
+
+    private boolean checkAccountEmailExistInFirebase(String email) {
+        final boolean[] b = new boolean[1];
+        firebaseAuth.fetchSignInMethodsForEmail(email).addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
+            @Override
+            public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
+                b[0] = !task.getResult().getSignInMethods().isEmpty();
+            }
+        });
+        return b[0];
     }
 
     @Override
@@ -115,7 +142,7 @@ public class RegistroActivity extends AppCompatActivity {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
                 String value = dataSnapshot.getValue(String.class);
-                Toast.makeText(RegistroActivity.this, "value is "+value, Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegistroActivity.this, "Mensaje del dia :\n"+value, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -141,7 +168,6 @@ public class RegistroActivity extends AppCompatActivity {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 GetUserDataFromFacebook(loginResult);
-                // TODO: 22/05/2018 hacer un wizard para poner el inicio de sesion con facebook en un fragmento o actividad unica que no interfiera con los campos de escolares
                 handleFacebookAccesToken(loginResult.getAccessToken());
 
             }
@@ -181,15 +207,11 @@ public class RegistroActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if ((task.isSuccessful())) {
-                    Toast.makeText(getApplicationContext(), "todo bien", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), "todo bien", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getApplicationContext(), "error en autenticacion"+task.getException(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "error en autenticacion "+task.getException(), Toast.LENGTH_SHORT).show();
+
                 }
-            }
-        }).addOnFailureListener(this, new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(RegistroActivity.this, "fallo: "+e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

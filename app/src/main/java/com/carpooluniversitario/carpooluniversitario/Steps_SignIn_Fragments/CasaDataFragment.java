@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.carpooluniversitario.carpooluniversitario.R;
+import com.carpooluniversitario.carpooluniversitario.Utils.SessionManagement;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -54,6 +55,8 @@ public class CasaDataFragment extends Fragment  implements OnMapReadyCallback, G
     private Marker currentLocationMarker;
     LinearLayout layoutForm ;
     TextView masinfo;
+    SessionManagement session;
+
 
 
 
@@ -77,6 +80,8 @@ public class CasaDataFragment extends Fragment  implements OnMapReadyCallback, G
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             CheckLocationPermission();
         }
+        session = new SessionManagement(getContext());
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
